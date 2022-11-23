@@ -112,6 +112,7 @@ const styles = StyleSheet.create({
     flex: 0.1,
     alignSelf: "flex-end",
     alignItems: "center",
+    backgroundColor: "white",
   },
   text: {
     fontSize: 18,
@@ -122,25 +123,3 @@ const styles = StyleSheet.create({
     height: 300,
   },
 });
-
-//In this example, we are using the Camera component from expo-camera to record a video. We are also using the Video component from expo-av to play the recorded video.
-
-//The Camera component has a recordAsync function that records the video. The recordAsync function returns a promise that resolves to an object with a uri property. The uri property contains the URI of the recorded video.
-
-//We are using the useState hook to store the URI of the recorded video. We are also using the useRef hook to store the reference of the Video component.
-
-//We are using the useEffect hook to request the permissions for the camera and microphone. We are using the Camera.requestCameraPermissionsAsync and Camera.requestMicrophonePermissionsAsync functions to request the permissions.
-
-//We are using the takeVideo function to record the video. We are using the stopVideo function to stop the recording.
-
-//We are using the Video component to play the recorded video. We are using the source property to set the source of the video. We are using the uri property of the object returned by the recordAsync function to set the source of the video.
-
-//We are using the onPlaybackStatusUpdate property to set the function that is called when the status of the video changes. We are using the setStatus function to set the status of the video.
-
-//We are using the status object to get the status of the video. We are using the isLoaded property to check if the video is loaded. We are using the isPlaying property to check if the video is playing.
-
-//We are using the useNativeControls property to set whether to use native controls or not. We are using the resizeMode property to set the resize mode of the video. We are using the isLooping property to set whether to loop the video or not.
-
-//We are using the Text component to display the buttons to record and stop the video. We are using the onPress property to set the function that is called when the button is pressed.
-
-//We are using the StyleSheet.create function to create the styles object. We are using the flex property to set the flex property of the style. We are using the backgroundColor property to set the background color of the style. We are using the alignItems property to set the align items property of the style. We are using the justifyContent property to set the justify content property of the style.
