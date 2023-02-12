@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Camera } from "expo-camera";
 import { Video } from "expo-av";
+import * as MediaLibrary from "expo-media-library";
+import { getStoragePermissions } from "./src/utils/camera";
 
 export default function App() {
   const [hasAudioPermission, setHasAudioPermission] = useState(null);
@@ -36,6 +38,10 @@ export default function App() {
     }
   };
 
+  const clearVideo = () => {
+    setRecord(null);
+  };
+
   if (hasCameraPermission === null || hasAudioPermission === null) {
     return <View />;
   }
@@ -43,6 +49,18 @@ export default function App() {
   if (hasCameraPermission === false || hasAudioPermission === false) {
     return <Text>No access to camera</Text>;
   }
+
+  const saveRecordVideoToDevice = async () => {
+    if (record) {
+      const status = await getStoragePermissions();
+      if (status === "granted") {
+        const asset = await MediaLibrary.createAssetAsync(record); // does record have to be a file path?
+        await MediaLibrary.createAlbumAsync("Recordings", asset, false);
+      } else {
+        alert("Sorry, we need camera roll permissions to make this work!");
+      }
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -71,6 +89,12 @@ export default function App() {
           </Text>
           <Text style={styles.button} onPress={stopVideo}>
             Stop
+          </Text>
+          <Text style={styles.button} onPress={clearVideo}>
+            Clear
+          </Text>
+          <Text style={styles.button} onPress={saveRecordVideoToDevice}>
+            Save to Local
           </Text>
         </View>
       </Camera>
@@ -113,6 +137,9 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
     alignItems: "center",
     backgroundColor: "white",
+    marginHorizontal: 8,
+    borderRadius: 10,
+    padding: 16,
   },
   text: {
     fontSize: 18,
